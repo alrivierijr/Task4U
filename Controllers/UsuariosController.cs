@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Task4U.Models;
 using Task4U.Infrastructure;
 
-public class UsuariosController : Controller
+public class Usuarios1Controller : Controller
 {
     private readonly TskDbContext _context;
 
-    public UsuariosController(TskDbContext context)
+    public Usuarios1Controller(TskDbContext context)
     {
         _context = context;
     }
@@ -48,7 +48,7 @@ public class UsuariosController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Nome,Email,Senha,Nivel,Ativo")] Usuario usuario)
+    public async Task<IActionResult> Create([Bind("Id,IncData,IncUsuarioId,AltData,AltUsuarioId,Nome,Email,Senha,UltimoAcessoData,UltimoAcessoIP,Nivel,Ativo")] Usuario usuario)
     {
         if (ModelState.IsValid)
         {
@@ -80,7 +80,7 @@ public class UsuariosController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Nome,Email,Senha,Nivel,Ativo")] Usuario usuario)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,IncData,IncUsuarioId,AltData,AltUsuarioId,Nome,Email,Senha,UltimoAcessoData,UltimoAcessoIP,Nivel,Ativo")] Usuario usuario)
     {
         if (id != usuario.Id)
         {
