@@ -6,8 +6,11 @@ namespace Task4U.Models
 {
     public enum NivelUsuario
     {
+        [Display(Name = "Administrador")]
         Admin = 1,
+        [Display(Name = "Colaborador")]
         Colaborador = 2,
+        [Display(Name = "Gerente")]
         Gerente = 3
     }
 
