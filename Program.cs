@@ -9,8 +9,10 @@ namespace Task4U
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("ConexaoPostgres");
+
             builder.Services.AddDbContext<TskDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("ConexaoPostgresql")));
+                options.UseNpgsql(connectionString));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

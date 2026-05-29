@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table id="tabelaPadrao" class="display">
     <thead>
         <tr>
             <th>
@@ -57,3 +57,18 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/DataTables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tabelaPadrao').DataTable({
+                "language": {
+                    "url" : "@Url.Content("~/DataTables/pt-BR.json")"
+                }
+            }
+            
+            );
+        });
+    </script>
+}

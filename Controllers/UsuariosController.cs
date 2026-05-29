@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Task4U.Models;
 using Task4U.Infrastructure;
 
-public class Usuarios1Controller : Controller
+public class UsuariosController : Controller
 {
     private readonly TskDbContext _context;
 
-    public Usuarios1Controller(TskDbContext context)
+    public UsuariosController(TskDbContext context)
     {
         _context = context;
     }
