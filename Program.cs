@@ -27,6 +27,8 @@ namespace Task4U
                 app.UseHsts();
             }
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             app.UseHttpsRedirection();
             app.UseRouting();
 

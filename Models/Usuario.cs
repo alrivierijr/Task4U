@@ -20,7 +20,7 @@ namespace Task4U.Models
 
         [Column("inc_data")]
         [ScaffoldColumn(false)]
-        public DateTime IncData { get; set; } = DateTime.Now;
+        public DateTime IncData { get; set; } = DateTime.Now.ToUniversalTime();
 
         [Column("inc_usuario_id")]
         [ScaffoldColumn(false)]
@@ -50,9 +50,9 @@ namespace Task4U.Models
 
         [Column("senha")]
         [Display(Name = "Senha")]
-        [Required(ErrorMessage = "A senha é obrigatória.")]
+        //[Required(ErrorMessage = "A senha é obrigatória.")]
         [DataType(DataType.Password)]
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "A senha deve ter no mínimo 6 e no máximo 50 caracteres")]
+        [StringLength(50, ErrorMessage = "A senha deve ter no máximo 50 caracteres")]
         public string Senha { get; set; } = string.Empty;
 
         [Column("ultimo_acesso_data")]
