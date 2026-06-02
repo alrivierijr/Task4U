@@ -57,7 +57,8 @@
                                         </td>
                                         <td>
                                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Editar</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Excluir</a>
+                                            <button type="button" class="btn btn-danger" onclick="ShowConfirmExcluir(@item.Id)">Excluir</button>
+                                            @* <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Excluir</a> *@
                                         </td>
                                     </tr>
                                 }
@@ -81,16 +82,83 @@
 
 
 @section Scripts {
-    <script src="~/DataTables/datatables.min.js"></script>
+    <script src="~/lib/DataTables/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#tabelaPadrao').DataTable({
                 "language": {
-                    "url" : "@Url.Content("~/DataTables/pt-BR.json")"
+                    "url" : "@Url.Content("~/lib/DataTables/pt-BR.json")"
                 }
             }
             
             );
         });
+
+        function ShowConfirmExcluir(id) {
+        var timerInterval;
+
+        Swal.fire({
+        title: "Confirma a exclusão deste registro?",
+        icon: "warning",
+        showCancelButton: true,
+        buttonsStyling: false,
+        customClass: {
+        confirmButton: "btn btn-primary mx-1",
+        cancelButton: "btn btn-danger mx-1"
+        },
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar"
+        }).then(function (result) {
+        if (result.isConfirmed) {
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        // Monta a URL básica gerada pelo Razor
+        var urlGerada = '@Url.Action("Delete", "Usuario")/' + id;
+
+        // IMPRIME NO CONSOLE PARA CONFERIRMOS A ROTA
+        console.log("Tentando acessar a URL:", urlGerada);
+        console.log("Token enviado:", token);
+
+        $.ajax({
+        type: 'POST',
+        url: urlGerada,
+        data: {
+        __RequestVerificationToken: token
+        },
+        success: function (response) {
+        Swal.fire({
+        icon: "success",
+        title: "Deletado!",
+        text: "Registro excluído com sucesso.",
+        timer: 1000,
+        buttonsStyling: false,
+        customClass: { confirmButton: "btn btn-success" },
+        willOpen: function () { Swal.showLoading(); },
+        willClose: function () { clearInterval(timerInterval); }
+        }).then(function () {
+        location.reload();
+        });
+        },
+        error: function (xhr) {
+        // IMPRIME O ERRO DETALHADO NO CONSOLE
+        console.error("Erro no AJAX. Status:", xhr.status);
+        console.error("Resposta do Servidor:", xhr.responseText);
+
+        Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: "Não foi possível excluir o registro. Status: " + xhr.status,
+        customClass: { confirmButton: "btn btn-secondary" },
+        buttonsStyling: false
+        });
+        }
+        });
+
+        }
+        });
+        };
+
+
     </script>
+
 }

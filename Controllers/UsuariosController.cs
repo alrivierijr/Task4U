@@ -111,6 +111,7 @@ public class UsuariosController : Controller
     }
 
     // GET: USUARIOS/Delete/5
+    [HttpGet]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -128,20 +129,43 @@ public class UsuariosController : Controller
         return View(usuario);
     }
 
-    // POST: USUARIOS/Delete/5
-    [HttpPost, ActionName("Delete")]
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
+        if (id == null)
+        {
+            return BadRequest(new { success = false, message = "ID inválido." });
+        }
+
         var usuario = await _context.Usuario.FindAsync(id);
+        
         if (usuario != null)
         {
             _context.Usuario.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            // Retorna um status JSON de sucesso para o AJAX atualizar a tela
+            return Json(new { success = true, message = "Usuário excluído com sucesso." });
         }
 
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return NotFound(new { success = false, message = "Usuário não encontrado." });
     }
+
+    //// POST: USUARIOS/Delete/5
+    //[HttpPost, ActionName("Delete")]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> DeleteConfirmed(int? id)
+    //{
+    //    var usuario = await _context.Usuario.FindAsync(id);
+    //    if (usuario != null)
+    //    {
+    //        _context.Usuario.Remove(usuario);
+    //    }
+
+    //    await _context.SaveChangesAsync();
+    //    return RedirectToAction(nameof(Index));
+    //}
 
     private bool UsuarioExists(int? id)
     {
