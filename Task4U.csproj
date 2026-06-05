@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pesquisa\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
