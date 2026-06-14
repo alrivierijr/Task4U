@@ -45,7 +45,7 @@ namespace Task4U.Models
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "O nome é obrigatório.") ]
         [StringLength(60, ErrorMessage = "O nome não deve ultrapassar 60 caracteres")]
-        public string Sigla { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty;
 
       
     }

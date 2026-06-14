@@ -73,7 +73,7 @@ namespace Task4U.Models
         public NivelUsuario Nivel { get; set; } = NivelUsuario.Colaborador;
 
         [Column("usuario_ativo")]
-        [Display(Name = "Usuário Ativo ?")]
+        [Display(Name = "Ativo")]
         public bool Ativo { get; set; } = true;
 
     }
