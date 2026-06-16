@@ -43,6 +43,25 @@ public class UsuariosController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    // [ValidateAntiForgeryToken]
+    public IActionResult Logon(string email, string senha)
+    {
+        if (email == "admin@teste.com" && senha == "1234")
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        ViewBag.Erro = "Usuário ou senha inválidos.";
+        return View();
+    }
+
     // POST: USUARIOS/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
