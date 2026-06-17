@@ -47,7 +47,7 @@ namespace Task4U
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Usuarios}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

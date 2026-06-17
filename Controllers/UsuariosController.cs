@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Task4U.Models;
 using Task4U.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 public class UsuariosController : Controller
 {
@@ -50,16 +53,43 @@ public class UsuariosController : Controller
     }
 
     [HttpPost]
-    // [ValidateAntiForgeryToken]
-    public IActionResult Logon(string email, string senha)
+    public async Task<IActionResult> Logon(string email, string senha)
     {
-        if (email == "admin@teste.com" && senha == "1234")
+         var usuario = await _context.Usuario
+            .FirstOrDefaultAsync(u => u.Email == email);
+
+        if (usuario == null || usuario.Senha != senha) // Lembrete: use hash em produção!
         {
-            return RedirectToAction("Index", "Home");
+            ViewBag.Erro = "Usuário ou senha inválidos.";
+            return View();
         }
 
-        ViewBag.Erro = "Usuário ou senha inválidos.";
-        return View();
+        // 2. Define o que será guardado CRIPTOGRAFADO dentro do Cookie
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+            new Claim(ClaimTypes.Name, usuario.Nome),
+            new Claim(ClaimTypes.Email, usuario.Email)
+        };
+
+        var identidadeUsuario = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        // 3. Efetua o login salvando o Cookie criptografado no navegador do usuário
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(identidadeUsuario)
+        );
+
+        return RedirectToAction("Index", "Home");
+
+    }
+
+
+    public async Task<IActionResult> Logout()
+    {
+        // Limpa o cookie do navegador do usuário
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Usuarios");
     }
 
     // POST: USUARIOS/Create
