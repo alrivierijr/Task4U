@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Task4U.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Task4U
 {
@@ -17,6 +18,14 @@ namespace Task4U
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .AddCookie(options =>
+            {
+                options.LoginPath = "/Usuarios/Login"; 
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.SlidingExpiration = true; 
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,7 +41,8 @@ namespace Task4U
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); // quem e você ?
+            app.UseAuthorization(); // o que você pode fazer.
 
             app.MapStaticAssets();
             app.MapControllerRoute(
