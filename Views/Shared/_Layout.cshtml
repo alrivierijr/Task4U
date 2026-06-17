@@ -210,7 +210,11 @@
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Antonio</span>
+                <span class="d-none d-md-inline">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated){
+                       @User.Identity.Name
+                    }
+                </span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
@@ -221,8 +225,11 @@
                     alt="User Image"
                   />
                   <p>
-                    Antonio - Web Developer
-                    <small>Membro desde 06/2026</small>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated){
+                       @User.Identity.Name
+                    }
+
+                    @* <small>Membro desde 06/2026</small> *@
                   </p>
                 </li>
                 <!--end::Menu Body-->
@@ -230,7 +237,7 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-outline-secondary">Conta</a>
-                  <a href="#" class="btn btn-outline-danger float-end">Logout</a>
+                  <a asp-controller="Usuarios" asp-action="Logout" class="btn btn-outline-danger float-end">Logout</a>
                 </li>
                 <!--end::Menu Footer-->
 
