@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Task4U.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Task4U.Models;
 
 namespace Task4U
 {
@@ -25,6 +27,8 @@ namespace Task4U
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 options.SlidingExpiration = true; 
             });
+
+            builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 
             var app = builder.Build();
 

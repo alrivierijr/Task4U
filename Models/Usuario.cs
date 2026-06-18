@@ -53,10 +53,9 @@ namespace Task4U.Models
 
         [Column("senha")]
         [Display(Name = "Senha")]
-        //[Required(ErrorMessage = "A senha é obrigatória.")]
         [DataType(DataType.Password)]
         [StringLength(50, ErrorMessage = "A senha deve ter no máximo 50 caracteres")]
-        public string Senha { get; set; } = string.Empty;
+        public string? Senha { get; set; }
 
         [Column("ultimo_acesso_data")]
         [Display(Name = "Data Último Acesso ?")]
