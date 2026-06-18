@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace Task4U.Models
 {
@@ -54,7 +53,7 @@ namespace Task4U.Models
         [Column("senha")]
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]
-        [StringLength(50, ErrorMessage = "A senha deve ter no máximo 50 caracteres")]
+        [StringLength(200)]
         public string? Senha { get; set; }
 
         [Column("ultimo_acesso_data")]

@@ -1,6 +1,6 @@
 @{
     Layout = null;
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Recuperar Senha";
 }
 
 <!doctype html>
@@ -8,7 +8,7 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Task4U | Login</title>
+    <title>Task4U | Recuperar Senha</title>
 
     <script>
       (() => {
@@ -67,41 +67,27 @@
               class="brand-image opacity-75 shadow "
             />
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Acesso ao Sistema</p>
+          <p class="login-box-msg">Recuperar Senha</p>
 
           <form asp-controller="Usuarios" asp-action="Logon" method="post">
+
             <div class="input-group mb-1">
               <div class="form-floating">
-                <input id="email" name="email"  type="email" class="form-control" value=""  />
+                <input id="email" name="email"  type="email" class="form-control" value="" required />
                 <label for="email">Email</label>
               </div>
               <div class="input-group-text">
                 <span class="bi bi-envelope"></span>
               </div>
             </div>
-            <div class="input-group mb-1">
-              <div class="form-floating">
-                <input id="senha" name="senha" type="password" class="form-control"  />
-                <label for="senha">Senha</label>
-              </div>
-              <div class="input-group-text">
-                <span class="bi bi-lock-fill"></span>
-              </div>
-            </div>
-            <!--begin::Row-->
+
             <div class="row mt-4">
-              <div class="col-8 d-inline-flex align-items-center">
-              <button class="btn btn-secondary" asp-controller="Usuarios" asp-action="RecuperarSenha" >Recuperar Senha</button>
-              </div>
-              <!-- /.col -->
               <div class="col-4">
                 <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary">Recuperar</button>
                 </div>
               </div>
-              <!-- /.col -->
             </div>
-            <!--end::Row-->
           </form>
 
         </div>

@@ -63,7 +63,7 @@ public class UsuariosController : Controller
             .FirstOrDefaultAsync(u => u.Email == email);
 
         // Se o usuário não existir, já rejeita imediatamente
-        if (usuario == null)
+        if (usuario == null || senha == null)
         {
             ViewBag.Erro = "Usuário ou senha inválidos.";
             return View("Login"); // CORREÇÃO: return View mantém a ViewBag viva na tela
@@ -121,6 +121,13 @@ public class UsuariosController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Login", "Usuarios");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> RecuperarSenha()
+    {
+        return View("RecuperarSenha");
+    }
+
 
     // POST: USUARIOS/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
