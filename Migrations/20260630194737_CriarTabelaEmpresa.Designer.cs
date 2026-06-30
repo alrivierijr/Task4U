@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Task4U.Infrastructure;
@@ -11,9 +12,11 @@ using Task4U.Infrastructure;
 namespace Task4U.Migrations
 {
     [DbContext(typeof(TskDbContext))]
-    partial class TskDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260630194737_CriarTabelaEmpresa")]
+    partial class CriarTabelaEmpresa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

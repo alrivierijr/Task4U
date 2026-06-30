@@ -7,6 +7,7 @@ namespace Task4U.Infrastructure
     {
        public TskDbContext(DbContextOptions<TskDbContext> options) : base(options) {}
         public DbSet<Task4U.Models.Usuario> Usuario { get; set; } = default!;
+        public DbSet<Task4U.Models.Empresa> Empresa { get; set; } = default!;
 
     }
 }
